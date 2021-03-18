@@ -1,0 +1,71 @@
+CCS PCM C Compiler, Version 4.104, 5967               02-dic.-20 15:35
+
+               Filename: C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Encendido de Leds mediante High-Low\High-Low.lst
+
+               ROM used: 30 words (0%)
+                         Largest free fragment is 2048
+               RAM used: 6 (2%) at main() level
+                         6 (2%) worst case
+               Stack:    0 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... #include <16f876.h> 
+.................... //////// Standard Header file for the PIC16F876 device //////////////// 
+.................... #device PIC16F876 
+.................... #list 
+....................  
+.................... #fuses xt, nowdt 
+.................... #use delay(clock = 4000000) 
+.................... #use fast_io(B) 
+....................   
+.................... void main(){ 
+0004:  CLRF   04
+0005:  BCF    03.7
+0006:  MOVLW  1F
+0007:  ANDWF  03,F
+0008:  BSF    03.5
+0009:  BSF    1F.0
+000A:  BSF    1F.1
+000B:  BSF    1F.2
+000C:  BCF    1F.3
+....................    port_b_pullups(TRUE); 
+000D:  BCF    01.7
+....................    set_tris_B(0b011);             //configura b0 y b1 como entrada, el resto son salidas 
+000E:  MOVLW  03
+000F:  MOVWF  06
+....................    output_low(pin_b2);           //se limpian las salidas y se mandan a 0 
+0010:  BCF    03.5
+0011:  BCF    06.2
+....................    output_low(pin_b3); 
+0012:  BCF    06.3
+....................    output_low(pin_b4); 
+0013:  BCF    06.4
+....................    output_low(pin_b5); 
+0014:  BCF    06.5
+....................    output_low(pin_b6); 
+0015:  BCF    06.6
+....................    output_low(pin_b7); 
+0016:  BCF    06.7
+....................     
+....................    while(1){ 
+....................       if(input(pin_b0)==1){ 
+0017:  BTFSS  06.0
+0018:  GOTO   01B
+....................          output_low(pin_b2); 
+0019:  BCF    06.2
+....................       } 
+....................       else 
+001A:  GOTO   01C
+....................          output_high(pin_b2); 
+001B:  BSF    06.2
+....................    } 
+001C:  GOTO   017
+.................... } 
+001D:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT NOPROTECT BROWNOUT NOLVP NOCPD NOWRT NODEBUG

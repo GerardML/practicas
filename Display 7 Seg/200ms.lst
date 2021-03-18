@@ -1,0 +1,131 @@
+CCS PCM C Compiler, Version 5.015, 5967               15-mar.-21 20:00
+
+               Filename:   C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Display 7 Seg\200ms.lst
+
+               ROM used:   69 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   14 (4%) at main() level
+                           16 (4%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #fuses xt, noprotect, nowdt 
+.................... #use delay(clock=4M) 
+.................... #byte display = 0x06  //PortB 
+.................... #bit trisc0 = 0x87.0  //TrisC pin0 
+.................... #bit portc0 = 0x07.0 
+.................... #define button  pin_c0 
+....................  
+.................... #use fast_io(b) 
+.................... #use fast_io(c) 
+.................... int8 numDisp[9]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0xfc,0x47,255}; 
+*
+000F:  MOVLW  3F
+0010:  BCF    03.5
+0011:  MOVWF  20
+0012:  MOVLW  06
+0013:  MOVWF  21
+0014:  MOVLW  5B
+0015:  MOVWF  22
+0016:  MOVLW  4F
+0017:  MOVWF  23
+0018:  MOVLW  66
+0019:  MOVWF  24
+001A:  MOVLW  6D
+001B:  MOVWF  25
+001C:  MOVLW  FC
+001D:  MOVWF  26
+001E:  MOVLW  47
+001F:  MOVWF  27
+0020:  MOVLW  FF
+0021:  MOVWF  28
+....................  
+.................... void main() { 
+*
+0004:  MOVF   03,W
+0005:  ANDLW  1F
+0006:  MOVWF  03
+0007:  BSF    03.5
+0008:  BSF    1F.0
+0009:  BSF    1F.1
+000A:  BSF    1F.2
+000B:  BCF    1F.3
+000C:  MOVLW  07
+000D:  MOVWF  1C
+000E:  BCF    03.7
+....................     set_tris_b(0x00); 
+*
+0022:  MOVLW  00
+0023:  BSF    03.5
+0024:  MOVWF  06
+....................     display = 0x00; 
+0025:  BCF    03.5
+0026:  CLRF   06
+....................     trisc0 = 1; 
+0027:  BSF    03.5
+0028:  BSF    07.0
+....................      
+....................     int disp = 0x06; 
+....................     int a = 1; 
+0029:  MOVLW  06
+002A:  BCF    03.5
+002B:  MOVWF  29
+002C:  MOVLW  01
+002D:  MOVWF  2A
+....................     display=numDisp[0]; 
+002E:  MOVF   20,W
+002F:  MOVWF  06
+....................     while (1) { 
+....................         if (input(button)) { 
+0030:  BTFSS  07.0
+0031:  GOTO   043
+....................          while(input(button)){} 
+0032:  BTFSC  07.0
+0033:  GOTO   032
+....................             display=numDisp[a]; 
+0034:  MOVLW  20
+0035:  ADDWF  2A,W
+0036:  MOVWF  04
+0037:  BCF    03.7
+0038:  MOVF   00,W
+0039:  MOVWF  06
+....................             a!=a++; 
+003A:  MOVF   2A,W
+003B:  INCF   2A,F
+003C:  SUBWF  2A,W
+003D:  BTFSC  03.2
+003E:  MOVLW  00
+....................             //delay_ms(200); 
+....................             if (a>=9) a=0; 
+003F:  MOVF   2A,W
+0040:  SUBLW  08
+0041:  BTFSS  03.0
+0042:  CLRF   2A
+....................             } //else display=0x00; 
+0043:  GOTO   030
+....................     } 
+.................... } 
+0044:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

@@ -1,0 +1,19 @@
+[PROJECT]
+Target=Byte and Bit.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=Byte and Bit.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\devices\;C:\Program Files (x86)\PICC\drivers\
+[Byte and Bit.c]
+Type=4
+[mru-list]
+1=Byte and Bit.c
+[Opened Files]
+1=Byte and Bit.c
+2=
+[Units]
+Count=1
+1=Byte and Bit (main)

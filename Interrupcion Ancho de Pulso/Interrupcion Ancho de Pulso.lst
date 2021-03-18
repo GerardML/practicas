@@ -1,0 +1,121 @@
+CCS PCM C Compiler, Version 4.104, 5967               19-feb.-21 19:49
+
+               Filename: C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Interrupcion Ancho de Pulso\Interrupcion Ancho de Pulso.lst
+
+               ROM used: 209 words (3%)
+                         Largest free fragment is 2048
+               RAM used: 13 (4%) at main() level
+                         25 (7%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   09A
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... //#include <lcd.c> 
+.................... #use delay(clock=4M) 
+.................... #fuses xt,nowdt,noprotect,noput 
+.................... #define use_portb_lcd TRUE 
+.................... #INT_EXT 
+....................  
+.................... int16 TFB; 
+.................... float AP; 
+.................... int1 nuevopulso=0; 
+.................... int1 cambio=0; 
+....................  
+.................... void interrupt(){ 
+....................    if (cambio==0){ 
+....................       set_timer1(0); 
+....................       ext_int_edge(0,H_TO_L); 
+....................       cambio=1; 
+....................    } else { 
+....................       TFB=get_timer1(); 
+....................       ext_int_edge(0,L_TO_H); 
+....................       cambio=0; 
+....................       if(nuevopulso==0){ 
+....................         nuevopulso=1;  
+....................       } 
+....................    } 
+.................... } 
+....................  
+.................... void main(){ 
+009A:  CLRF   04
+009B:  BCF    03.7
+009C:  MOVLW  1F
+009D:  ANDWF  03,F
+009E:  BCF    26.0
+009F:  BCF    26.1
+00A0:  BSF    03.5
+00A1:  BSF    1F.0
+00A2:  BSF    1F.1
+00A3:  BSF    1F.2
+00A4:  BCF    1F.3
+00A5:  MOVLW  07
+00A6:  MOVWF  1C
+....................    //lcd_init(void); 
+....................    setup_timer_1(T1_INTERNAL|T1_DIV_BY_1); 
+00A7:  MOVLW  85
+00A8:  BCF    03.5
+00A9:  MOVWF  10
+....................    ext_int_edge(0,L_TO_H); 
+00AA:  BSF    03.5
+00AB:  BSF    01.6
+....................    cambio=0; 
+00AC:  BCF    03.5
+00AD:  BCF    26.1
+....................    enable_interrupts(int_ext); 
+00AE:  BSF    0B.4
+....................    enable_interrupts(global); 
+00AF:  MOVLW  C0
+00B0:  IORWF  0B,F
+....................     
+....................    while(1){ 
+....................       if(nuevopulso==1){ 
+00B1:  BTFSS  26.0
+00B2:  GOTO   0CE
+....................         AP = TFB*1.0; 
+00B3:  MOVF   21,W
+00B4:  MOVWF  28
+00B5:  MOVF   20,W
+00B6:  MOVWF  27
+00B7:  GOTO   004
+00B8:  MOVF   7A,W
+00B9:  MOVWF  2A
+00BA:  MOVF   79,W
+00BB:  MOVWF  29
+00BC:  MOVF   78,W
+00BD:  MOVWF  28
+00BE:  MOVF   77,W
+00BF:  MOVWF  27
+00C0:  CLRF   2E
+00C1:  CLRF   2D
+00C2:  CLRF   2C
+00C3:  MOVLW  7F
+00C4:  MOVWF  2B
+00C5:  GOTO   023
+00C6:  MOVF   7A,W
+00C7:  MOVWF  25
+00C8:  MOVF   79,W
+00C9:  MOVWF  24
+00CA:  MOVF   78,W
+00CB:  MOVWF  23
+00CC:  MOVF   77,W
+00CD:  MOVWF  22
+....................         //printf(lcd_putc,"\nPulso = %6.1fuS", AP); 
+....................       } 
+....................       nuevopulso=0; 
+00CE:  BCF    26.0
+....................    } 
+00CF:  GOTO   0B1
+....................  
+.................... } 
+00D0:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F79   XT NOWDT NOPUT NODEBUG NOPROTECT BROWNOUT NOLVP NOCPD NOWRT

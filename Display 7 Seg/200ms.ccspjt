@@ -1,0 +1,19 @@
+[PROJECT]
+Target=200ms.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=200ms.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\devices\;C:\Program Files (x86)\PICC\drivers\
+[200ms.c]
+Type=4
+[mru-list]
+1=200ms.c
+[Opened Files]
+1=200ms.c
+2=
+[Units]
+Count=1
+1=200ms (main)

@@ -1,0 +1,89 @@
+#include <16f877a.h>
+#use delay(clock=4M)
+#FUSES xt,noprotect,nowdt
+#use fast_io(B)
+#use fast_io(C)
+#byte display = 0x06
+#byte portc   = 0x07
+#bit  pulse   = 0x07.0
+#bit  uni     = 0x07.1
+#bit  dec     = 0x07.2
+#bit  cen     = 0x07.3
+#bit  uMill   = 0x07.4
+
+int8 numDisp[9]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0xfc,0x47,255};
+int c=0,c2=0,c3=0,c4=0;
+
+void conteo(){
+
+   uMill = 0;
+   cen   = 1;
+   dec   = 1;
+   uni   = 1;
+   display=numDisp[c4];
+   delay_us(1000);
+  
+   uMill = 1;
+   cen   = 0;
+   dec   = 1;
+   uni   = 1;
+   display=numDisp[c3];
+   //delay_ms(1);
+   
+   uMill = 1;
+   cen   = 1;
+   dec   = 0;
+   uni   = 1;
+   display=numDisp[c];
+   //delay_ms(1);
+   
+   uMill = 1;
+   cen   = 1;
+   dec   = 1;
+   uni   = 0;
+   display=numDisp[c2];
+   //delay_ms(1);
+   
+   delay_ms(42);
+}
+
+
+void main(){
+   int globa=0;
+   int globa2=0;
+   int globa3=0;
+   int globa4=0;
+   char count = "Unidades";
+   
+   set_tris_b(0x00);
+   display=numDisp[c];
+   set_tris_c(0xE1);
+   
+   for(;;){
+   
+      for(globa4=0;globa4<=8;globa4++){
+               
+               c3=0;
+               
+               for(globa3=0;globa3<=7;globa3++){
+                     
+                     c=0;
+                     
+                     for(globa=0;globa<=8;globa++){
+                        
+                        c2=0;
+                        
+                        for(globa2=0;globa2<=8;globa2++){
+                        
+                           conteo();
+                           c2++;
+                        }
+                        c++;
+                     }
+                     c3++;
+               }
+               c4++;
+      }
+      c4=0;
+   }
+}

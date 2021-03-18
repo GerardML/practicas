@@ -1,0 +1,5 @@
+>>> Warning 203 "200ms.c" Line 21(1,1): Condition always TRUE
+>>> Warning 202 "200ms.c" Line 18(9,13): Variable never used:   disp
+      Memory usage:   ROM=1%      RAM=4% - 4%
+      0 Errors,  2 Warnings.
+Build Successful.

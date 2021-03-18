@@ -1,0 +1,91 @@
+CCS PCM C Compiler, Version 5.015, 5967               04-mar.-21 17:32
+
+               Filename:   C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Byte and Bit\Byte and Bit.lst
+
+               ROM used:   36 words (0%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #use delay (clock=4M) 
+.................... #fuses xt,noprotect,nowdt 
+.................... #use fast_IO (B) 
+.................... #use STANDARD_IO (C) 
+....................  
+.................... #byte trisb=0x86 
+.................... #byte portb=0x06 
+....................  
+.................... //#bit trisRc5=0x87.5 
+.................... //#bit  rc5=0x07.5  //Definimos RC5 para el bit5(pin5) del registro PortC 
+.................... #define rc5 61  //PIN_C5  61 
+....................  
+.................... void main() { 
+0004:  MOVF   03,W
+0005:  ANDLW  1F
+0006:  MOVWF  03
+0007:  MOVLW  FF
+0008:  MOVWF  20
+0009:  BSF    03.5
+000A:  BSF    1F.0
+000B:  BSF    1F.1
+000C:  BSF    1F.2
+000D:  BCF    1F.3
+000E:  MOVLW  07
+000F:  MOVWF  1C
+0010:  BCF    03.7
+....................     trisb = 0x00; 
+0011:  CLRF   06
+....................     portb = 0x00; 
+0012:  BCF    03.5
+0013:  CLRF   06
+....................     //trisRc5 = 1; //RC5 como entrada 
+....................  
+....................    while (1) { 
+....................         if (input_c() == 040) {  //No es necesario escribir "Input(), ya que estamos leyendo el bit directamente 
+0014:  MOVLW  FF
+0015:  MOVWF  20
+0016:  BSF    03.5
+0017:  MOVWF  07
+0018:  BCF    03.5
+0019:  MOVF   07,W
+001A:  SUBLW  20
+001B:  BTFSS  03.2
+001C:  GOTO   021
+....................             portb = 0xFF; 
+001D:  MOVLW  FF
+001E:  MOVWF  06
+....................             output_low(48); 
+001F:  BCF    06.0
+....................         } else  
+0020:  GOTO   022
+....................             portb = 0x00;  
+0021:  CLRF   06
+0022:  GOTO   014
+....................     } 
+.................... } 
+0023:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

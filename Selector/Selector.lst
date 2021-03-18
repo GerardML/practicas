@@ -1,0 +1,498 @@
+CCS PCM C Compiler, Version 4.104, 5967               09-feb.-21 22:01
+
+               Filename: C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Selector\Selector.lst
+
+               ROM used: 373 words (5%)
+                         Largest free fragment is 2048
+               RAM used: 21 (6%) at main() level
+                         21 (6%) worst case
+               Stack:    2 worst case (1 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  01
+0001:  MOVWF  0A
+0002:  GOTO   13B
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  BCF    03.7
+0016:  BCF    03.5
+0017:  BTFSS  0B.4
+0018:  GOTO   01B
+0019:  BTFSC  0B.1
+001A:  GOTO   02C
+001B:  MOVF   22,W
+001C:  MOVWF  04
+001D:  MOVF   23,W
+001E:  MOVWF  77
+001F:  MOVF   24,W
+0020:  MOVWF  78
+0021:  MOVF   25,W
+0022:  MOVWF  79
+0023:  MOVF   26,W
+0024:  MOVWF  7A
+0025:  MOVF   20,W
+0026:  MOVWF  0A
+0027:  SWAPF  21,W
+0028:  MOVWF  03
+0029:  SWAPF  7F,F
+002A:  SWAPF  7F,W
+002B:  RETFIE
+002C:  BCF    0A.3
+002D:  BCF    0A.4
+002E:  GOTO   02F
+.................... #include <16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=4000000) 
+.................... #fuses xt,nowdt,noprotect,noput 
+.................... #use fast_io (a) 
+.................... #use fast_io (b) 
+.................... #byte entrada=0x05     //Porta=llantas 
+.................... #byte salida=0x06       //ultrb= 
+.................... ////////////////////////////////////ENTRADAS//////////////////////////////////// 
+.................... //////1 BOTON COMIENZO////////// 
+.................... //////4 SENSORES INFRAROJOS///// 
+.................... //////5 SENSORES ULTRASONICOS/// 
+.................... ////////////////////////////////////SALIDAS///////////////////////////////////// 
+.................... //////4 CONTROLADORES PARA 2 MOTORES/////// 
+.................... //////////////////////////////////////////////////////////////////////////////// 
+.................... //ASIGNACIÓN DE PINES DE ENTRADA: RB0 -> RB7 + D7, D6, D5, D4 
+.................... //ASIGNACIÓN DE PINES  DE SALIDA: RA0 -> RA3 
+....................  
+.................... ///////////Asignación de etiquetas/nombres a los comandos Hexa//////////////////    
+.................... int calibrar=6,iniciar=1,medir=2; 
+.................... int c=3,i=4,m=5; 
+.................... int menus=0,seleccion=0; 
+....................  
+.................... #INT_EXT  //Interrupción por B0 
+....................  
+.................... ext_isr(){ 
+....................    salida=0xFF; 
+002F:  MOVLW  FF
+0030:  MOVWF  06
+....................    //output_toggle(pin_b1); 
+.................... } 
+....................  
+....................  
+0031:  BCF    0B.1
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   01B
+.................... void menu(){ 
+....................    switch(menus){ 
+0035:  MOVF   2D,W
+0036:  XORLW  01
+0037:  BTFSC  03.2
+0038:  GOTO   040
+0039:  XORLW  03
+003A:  BTFSC  03.2
+003B:  GOTO   067
+003C:  XORLW  01
+003D:  BTFSC  03.2
+003E:  GOTO   08E
+003F:  GOTO   0B5
+....................          case 1:{ 
+....................             //salida=calibrar; 
+....................             bit_set(salida,calibrar); 
+0040:  MOVLW  01
+0041:  MOVWF  77
+0042:  MOVF   27,W
+0043:  MOVWF  78
+0044:  BTFSC  03.2
+0045:  GOTO   04A
+0046:  BCF    03.0
+0047:  RLF    77,F
+0048:  DECFSZ 78,F
+0049:  GOTO   046
+004A:  MOVF   77,W
+004B:  IORWF  06,F
+....................             bit_clear(salida,iniciar); 
+004C:  MOVLW  01
+004D:  MOVWF  77
+004E:  MOVF   28,W
+004F:  MOVWF  78
+0050:  BTFSC  03.2
+0051:  GOTO   056
+0052:  BCF    03.0
+0053:  RLF    77,F
+0054:  DECFSZ 78,F
+0055:  GOTO   052
+0056:  MOVF   77,W
+0057:  XORLW  FF
+0058:  ANDWF  06,F
+....................             bit_clear(salida,medir); 
+0059:  MOVLW  01
+005A:  MOVWF  77
+005B:  MOVF   29,W
+005C:  MOVWF  78
+005D:  BTFSC  03.2
+005E:  GOTO   063
+005F:  BCF    03.0
+0060:  RLF    77,F
+0061:  DECFSZ 78,F
+0062:  GOTO   05F
+0063:  MOVF   77,W
+0064:  XORLW  FF
+0065:  ANDWF  06,F
+....................          break; 
+0066:  GOTO   0B5
+....................          } 
+....................          case 2:{ 
+....................             //salida=iniciar; 
+....................             bit_set(salida,iniciar); 
+0067:  MOVLW  01
+0068:  MOVWF  77
+0069:  MOVF   28,W
+006A:  MOVWF  78
+006B:  BTFSC  03.2
+006C:  GOTO   071
+006D:  BCF    03.0
+006E:  RLF    77,F
+006F:  DECFSZ 78,F
+0070:  GOTO   06D
+0071:  MOVF   77,W
+0072:  IORWF  06,F
+....................             bit_clear(salida,calibrar); 
+0073:  MOVLW  01
+0074:  MOVWF  77
+0075:  MOVF   27,W
+0076:  MOVWF  78
+0077:  BTFSC  03.2
+0078:  GOTO   07D
+0079:  BCF    03.0
+007A:  RLF    77,F
+007B:  DECFSZ 78,F
+007C:  GOTO   079
+007D:  MOVF   77,W
+007E:  XORLW  FF
+007F:  ANDWF  06,F
+....................             bit_clear(salida,medir); 
+0080:  MOVLW  01
+0081:  MOVWF  77
+0082:  MOVF   29,W
+0083:  MOVWF  78
+0084:  BTFSC  03.2
+0085:  GOTO   08A
+0086:  BCF    03.0
+0087:  RLF    77,F
+0088:  DECFSZ 78,F
+0089:  GOTO   086
+008A:  MOVF   77,W
+008B:  XORLW  FF
+008C:  ANDWF  06,F
+....................          break; 
+008D:  GOTO   0B5
+....................          } 
+....................          case 3:{ 
+....................             //salida=medir; 
+....................             bit_set(salida,medir); 
+008E:  MOVLW  01
+008F:  MOVWF  77
+0090:  MOVF   29,W
+0091:  MOVWF  78
+0092:  BTFSC  03.2
+0093:  GOTO   098
+0094:  BCF    03.0
+0095:  RLF    77,F
+0096:  DECFSZ 78,F
+0097:  GOTO   094
+0098:  MOVF   77,W
+0099:  IORWF  06,F
+....................             bit_clear(salida,calibrar); 
+009A:  MOVLW  01
+009B:  MOVWF  77
+009C:  MOVF   27,W
+009D:  MOVWF  78
+009E:  BTFSC  03.2
+009F:  GOTO   0A4
+00A0:  BCF    03.0
+00A1:  RLF    77,F
+00A2:  DECFSZ 78,F
+00A3:  GOTO   0A0
+00A4:  MOVF   77,W
+00A5:  XORLW  FF
+00A6:  ANDWF  06,F
+....................             bit_clear(salida,iniciar); 
+00A7:  MOVLW  01
+00A8:  MOVWF  77
+00A9:  MOVF   28,W
+00AA:  MOVWF  78
+00AB:  BTFSC  03.2
+00AC:  GOTO   0B1
+00AD:  BCF    03.0
+00AE:  RLF    77,F
+00AF:  DECFSZ 78,F
+00B0:  GOTO   0AD
+00B1:  MOVF   77,W
+00B2:  XORLW  FF
+00B3:  ANDWF  06,F
+....................          break; 
+00B4:  GOTO   0B5
+....................          } 
+....................       } 
+.................... } 
+00B5:  BCF    0A.3
+00B6:  BCF    0A.4
+00B7:  GOTO   16E (RETURN)
+....................  
+.................... void seleccion(){ 
+....................       switch(menus){ 
+00B8:  MOVF   2D,W
+00B9:  XORLW  01
+00BA:  BTFSC  03.2
+00BB:  GOTO   0C3
+00BC:  XORLW  03
+00BD:  BTFSC  03.2
+00BE:  GOTO   0EA
+00BF:  XORLW  01
+00C0:  BTFSC  03.2
+00C1:  GOTO   111
+00C2:  GOTO   138
+....................          case 1:{ 
+....................             bit_set(salida,c); 
+00C3:  MOVLW  01
+00C4:  MOVWF  77
+00C5:  MOVF   2A,W
+00C6:  MOVWF  78
+00C7:  BTFSC  03.2
+00C8:  GOTO   0CD
+00C9:  BCF    03.0
+00CA:  RLF    77,F
+00CB:  DECFSZ 78,F
+00CC:  GOTO   0C9
+00CD:  MOVF   77,W
+00CE:  IORWF  06,F
+....................             bit_clear(salida,i); 
+00CF:  MOVLW  01
+00D0:  MOVWF  77
+00D1:  MOVF   2B,W
+00D2:  MOVWF  78
+00D3:  BTFSC  03.2
+00D4:  GOTO   0D9
+00D5:  BCF    03.0
+00D6:  RLF    77,F
+00D7:  DECFSZ 78,F
+00D8:  GOTO   0D5
+00D9:  MOVF   77,W
+00DA:  XORLW  FF
+00DB:  ANDWF  06,F
+....................             bit_clear(salida,m); 
+00DC:  MOVLW  01
+00DD:  MOVWF  77
+00DE:  MOVF   2C,W
+00DF:  MOVWF  78
+00E0:  BTFSC  03.2
+00E1:  GOTO   0E6
+00E2:  BCF    03.0
+00E3:  RLF    77,F
+00E4:  DECFSZ 78,F
+00E5:  GOTO   0E2
+00E6:  MOVF   77,W
+00E7:  XORLW  FF
+00E8:  ANDWF  06,F
+....................          break; 
+00E9:  GOTO   138
+....................          } 
+....................          case 2:{ 
+....................             bit_set(salida,i); 
+00EA:  MOVLW  01
+00EB:  MOVWF  77
+00EC:  MOVF   2B,W
+00ED:  MOVWF  78
+00EE:  BTFSC  03.2
+00EF:  GOTO   0F4
+00F0:  BCF    03.0
+00F1:  RLF    77,F
+00F2:  DECFSZ 78,F
+00F3:  GOTO   0F0
+00F4:  MOVF   77,W
+00F5:  IORWF  06,F
+....................             bit_clear(salida,c); 
+00F6:  MOVLW  01
+00F7:  MOVWF  77
+00F8:  MOVF   2A,W
+00F9:  MOVWF  78
+00FA:  BTFSC  03.2
+00FB:  GOTO   100
+00FC:  BCF    03.0
+00FD:  RLF    77,F
+00FE:  DECFSZ 78,F
+00FF:  GOTO   0FC
+0100:  MOVF   77,W
+0101:  XORLW  FF
+0102:  ANDWF  06,F
+....................             bit_clear(salida,m); 
+0103:  MOVLW  01
+0104:  MOVWF  77
+0105:  MOVF   2C,W
+0106:  MOVWF  78
+0107:  BTFSC  03.2
+0108:  GOTO   10D
+0109:  BCF    03.0
+010A:  RLF    77,F
+010B:  DECFSZ 78,F
+010C:  GOTO   109
+010D:  MOVF   77,W
+010E:  XORLW  FF
+010F:  ANDWF  06,F
+....................          break; 
+0110:  GOTO   138
+....................          } 
+....................          case 3:{ 
+....................             bit_set(salida,m); 
+0111:  MOVLW  01
+0112:  MOVWF  77
+0113:  MOVF   2C,W
+0114:  MOVWF  78
+0115:  BTFSC  03.2
+0116:  GOTO   11B
+0117:  BCF    03.0
+0118:  RLF    77,F
+0119:  DECFSZ 78,F
+011A:  GOTO   117
+011B:  MOVF   77,W
+011C:  IORWF  06,F
+....................             bit_clear(salida,i); 
+011D:  MOVLW  01
+011E:  MOVWF  77
+011F:  MOVF   2B,W
+0120:  MOVWF  78
+0121:  BTFSC  03.2
+0122:  GOTO   127
+0123:  BCF    03.0
+0124:  RLF    77,F
+0125:  DECFSZ 78,F
+0126:  GOTO   123
+0127:  MOVF   77,W
+0128:  XORLW  FF
+0129:  ANDWF  06,F
+....................             bit_clear(salida,c); 
+012A:  MOVLW  01
+012B:  MOVWF  77
+012C:  MOVF   2A,W
+012D:  MOVWF  78
+012E:  BTFSC  03.2
+012F:  GOTO   134
+0130:  BCF    03.0
+0131:  RLF    77,F
+0132:  DECFSZ 78,F
+0133:  GOTO   130
+0134:  MOVF   77,W
+0135:  XORLW  FF
+0136:  ANDWF  06,F
+....................          break; 
+0137:  GOTO   138
+....................          } 
+....................       } 
+.................... } 
+0138:  BCF    0A.3
+0139:  BCF    0A.4
+013A:  GOTO   173 (RETURN)
+....................  
+.................... void main(){ 
+013B:  CLRF   04
+013C:  BCF    03.7
+013D:  MOVLW  1F
+013E:  ANDWF  03,F
+013F:  MOVLW  06
+0140:  MOVWF  27
+0141:  MOVLW  01
+0142:  MOVWF  28
+0143:  MOVLW  02
+0144:  MOVWF  29
+0145:  MOVLW  03
+0146:  MOVWF  2A
+0147:  MOVLW  04
+0148:  MOVWF  2B
+0149:  MOVLW  05
+014A:  MOVWF  2C
+014B:  CLRF   2D
+014C:  CLRF   2E
+014D:  BSF    03.5
+014E:  BSF    1F.0
+014F:  BSF    1F.1
+0150:  BSF    1F.2
+0151:  BCF    1F.3
+0152:  MOVLW  07
+0153:  MOVWF  1C
+....................    enable_interrupts(int_ext); 
+0154:  BCF    03.5
+0155:  BSF    0B.4
+....................    ext_int_edge(L_TO_H); 
+0156:  BSF    03.5
+0157:  BSF    01.6
+....................    enable_interrupts(GLOBAL); 
+0158:  MOVLW  C0
+0159:  BCF    03.5
+015A:  IORWF  0B,F
+....................    set_tris_a(0x03); 
+015B:  MOVLW  03
+015C:  BSF    03.5
+015D:  MOVWF  05
+....................    set_tris_b(0x81); 
+015E:  MOVLW  81
+015F:  MOVWF  06
+....................    salida=0x00; 
+0160:  BCF    03.5
+0161:  CLRF   06
+....................     
+....................    for(;;){ 
+....................       if(input(pin_a0)==1){ 
+0162:  BTFSS  05.0
+0163:  GOTO   16E
+....................          while(input(pin_a0)==1) 
+....................          {} 
+0164:  BTFSC  05.0
+0165:  GOTO   164
+....................          menus++; 
+0166:  INCF   2D,F
+....................          if(menus>3){ 
+0167:  MOVF   2D,W
+0168:  SUBLW  03
+0169:  BTFSC  03.0
+016A:  GOTO   16D
+....................             menus=1; 
+016B:  MOVLW  01
+016C:  MOVWF  2D
+....................          } 
+....................          menu(); 
+016D:  GOTO   035
+....................       } 
+....................       if(input(pin_a1)==1){ 
+016E:  BTFSS  05.1
+016F:  GOTO   173
+....................          while(input(pin_a1)==1) 
+....................          {} 
+0170:  BTFSC  05.1
+0171:  GOTO   170
+....................          seleccion(); 
+0172:  GOTO   0B8
+....................       } 
+....................        
+....................    } 
+0173:  GOTO   162
+.................... } 
+....................  
+....................  
+0174:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F79   XT NOWDT NOPUT NODEBUG NOPROTECT BROWNOUT NOLVP NOCPD NOWRT

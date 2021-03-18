@@ -1,0 +1,26 @@
+[PROJECT]
+Target=C:\Users\GerardML\Documents\Prueba Codigo C\Estudio.hex
+Development_Mode=
+Processor_Text=
+ToolSuite=CCS
+Processor=0x0054
+[C:\Users\GerardML\Documents\Prueba Codigo C\Estudio]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=C:\Users\GerardML\Documents\Prueba Codigo C\Estudio.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=C:\Users\GerardML\Documents\Prueba Codigo C\Estudio
+[Opened Files]
+1=..\Encendido de Leds mediante High-Low\High-Low.c
+2=
+3=
+4=

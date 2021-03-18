@@ -1,0 +1,19 @@
+[PROJECT]
+Target=9999.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=9999.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\devices\;C:\Program Files (x86)\PICC\drivers\
+[9999.c]
+Type=4
+[mru-list]
+1=9999.c
+[Opened Files]
+1=9999.c
+2=
+[Units]
+Count=1
+1=9999 (main)

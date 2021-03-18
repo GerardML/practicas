@@ -1,0 +1,12 @@
+#include <16f877a.h>
+#use delay (clock=4M)
+#fuses xt, nowdt, noprotect
+
+#use fast_io(B)
+#use fast_io(C)
+
+#BYTE portb 0x04
+
+void main (){
+   
+}

@@ -1,0 +1,25 @@
+#include <16f877a.h>
+#use delay (clock=4M)
+#fuses xt,noprotect,nowdt
+#use FAST_IO (B)
+#use FAST_IO (C)
+
+#byte trisb=0x86
+#byte portb=0x06
+#byte trisc=0x87
+#byte portc=0x07
+
+#bit RC5=0x07.5  //Definimos RC5 para el bit5(pin5) del registro PortC
+
+void main() {
+    trisb = 0x00;
+    portb = 0x00;
+    trisc = 0x20; //RC5 como entrada
+    portc = 0x00;
+
+    while (1) {
+        if (rc5 == 1) {
+            portb = 0xFF;
+        } else portb = 0x00;
+    }
+}

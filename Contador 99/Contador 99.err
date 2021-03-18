@@ -1,0 +1,4 @@
+>>> Warning 203 "Contador 99.c" Line 15(1,1): Condition always TRUE
+>>> Warning 202 "Contador 99.c" Line 10(23,26): Variable never used:   inc
+      Memory usage:   ROM=1%      RAM=2% - 2%
+      0 Errors,  2 Warnings.

@@ -1,0 +1,15 @@
+#include <16f877a.h>
+#use delay (clock=4M)
+#fuses xt,noprotect,nowdt
+
+#byte tricb=0x86
+#byte portb=0x06
+#byte tricc=0x87
+#byte portc=0x07
+
+#bitt
+
+void main()
+{
+   
+}

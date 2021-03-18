@@ -1,0 +1,79 @@
+004     @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+006     portb
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020-023 T
+024-027 D
+028-02B @FLT.P1
+028-029 @ITOF.P2
+028     main.@SCRATCH1
+029     main.@SCRATCH2
+02A     main.@SCRATCH3
+02B     main.@SCRATCH4
+02C-02F @DIVFF.P1
+02C-02F @FLT.P2
+030-033 @DIVFF.P1
+030     @FLT.@SCRATCH1
+031     @FLT.@SCRATCH2
+034     @DIVFF.@SCRATCH1
+035     @DIVFF.@SCRATCH2
+036     @DIVFF.@SCRATCH3
+037     @DIVFF.@SCRATCH4
+038     @DIVFF.@SCRATCH5
+039     @DIVFF.@SCRATCH6
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+012E  main
+0004  @ITOF
+0023  @DIVFF
+00ED  @FLT
+012E  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
+
+Project Directory:
+    C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Ultrasonico\
+
+Project Files:
+    Ultrasonico.c
+    ..\..\..\..\..\..\Program Files (x86)\PICC\devices\16f877a.h
+
+Units:
+    C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Ultrasonico\Ultrasonico (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      Ultrasonico.err
+    Ext Symbols: Ultrasonico.esym
+    INHX8:       Ultrasonico.hex
+    Symbols:     Ultrasonico.sym
+    List:        Ultrasonico.lst
+    Debug/COFF:  Ultrasonico.cof
+    Project:     Ultrasonico.PJT
+    Call Tree:   Ultrasonico.tre
+    Statistics:  Ultrasonico.sta

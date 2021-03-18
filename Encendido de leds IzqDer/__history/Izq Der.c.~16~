@@ -1,0 +1,30 @@
+#include <16f877a.h>
+#use delay (clock=4M)
+#fuses xt, nowdt, noprotect
+
+#use fast_io(B)
+#use fast_io(C)
+
+#byte portb = 0x06
+#byte trisb = 0x86
+
+#bit pulse = 0x07.0
+#bit tris0c = 0x87.0
+
+void main (){
+   set_tris_b(0x00);
+   portb=0x00;
+   tris0c=1;
+   int inc[8]= {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
+   int a;
+   
+      while(1){
+         while(input(pulse)==1){
+            a=1
+         }
+        if(a==1){
+         portb=inc[0];
+         inc[++0];
+        }
+      }
+}

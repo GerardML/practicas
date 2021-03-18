@@ -1,0 +1,196 @@
+CCS PCM C Compiler, Version 4.104, 5967               15-feb.-21 18:46
+
+               Filename: C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Ultrasonico\Ultrasonico.lst
+
+               ROM used: 437 words (5%)
+                         Largest free fragment is 2048
+               RAM used: 17 (5%) at main() level
+                         31 (8%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  01
+0001:  MOVWF  0A
+0002:  GOTO   12E
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=4M) 
+.................... #fuses noprotect, nowdt, xt, nobrownout 
+....................  
+.................... #use standard_io(b) 
+.................... #byte portb=0x06 
+.................... #define trig pin_b1 
+.................... #define echo pin_b0 
+.................... #define led pin_b7 
+.................... #define high output_high 
+.................... #define low output_low 
+....................  
+.................... float T,D; 
+....................  
+.................... void main(){ 
+012E:  CLRF   04
+012F:  BCF    03.7
+0130:  MOVLW  1F
+0131:  ANDWF  03,F
+0132:  BSF    03.5
+0133:  BSF    1F.0
+0134:  BSF    1F.1
+0135:  BSF    1F.2
+0136:  BCF    1F.3
+0137:  MOVLW  07
+0138:  MOVWF  1C
+....................    set_tris_b(0x01); 
+0139:  MOVLW  01
+013A:  MOVWF  06
+....................    portb=0x00; 
+013B:  BCF    03.5
+013C:  CLRF   06
+....................    setup_timer_1(T1_INTERNAL|T1_DIV_BY_1); 
+013D:  MOVLW  85
+013E:  MOVWF  10
+....................     
+....................    while(1){ 
+....................       high(trig); 
+013F:  BSF    03.5
+0140:  BCF    06.1
+0141:  BCF    03.5
+0142:  BSF    06.1
+....................       delay_us(10); 
+0143:  MOVLW  03
+0144:  MOVWF  77
+0145:  DECFSZ 77,F
+0146:  GOTO   145
+....................       low(trig); 
+0147:  BSF    03.5
+0148:  BCF    06.1
+0149:  BCF    03.5
+014A:  BCF    06.1
+....................       while(!input(echo)) 
+....................       {} 
+014B:  BSF    03.5
+014C:  BSF    06.0
+014D:  BCF    03.5
+014E:  BTFSS  06.0
+014F:  GOTO   14B
+....................       set_timer1(0); 
+0150:  CLRF   0F
+0151:  CLRF   0E
+....................       while(input(echo)) 
+....................       {} 
+0152:  BSF    03.5
+0153:  BSF    06.0
+0154:  BCF    03.5
+0155:  BTFSC  06.0
+0156:  GOTO   152
+....................       T=get_timer1(); 
+0157:  MOVF   0F,W
+0158:  MOVWF  7A
+0159:  MOVF   0E,W
+015A:  MOVWF  77
+015B:  MOVF   0F,W
+015C:  SUBWF  7A,W
+015D:  BTFSS  03.2
+015E:  GOTO   157
+015F:  MOVF   77,W
+0160:  MOVWF  28
+0161:  MOVF   7A,W
+0162:  MOVWF  29
+0163:  GOTO   004
+0164:  MOVF   7A,W
+0165:  MOVWF  23
+0166:  MOVF   79,W
+0167:  MOVWF  22
+0168:  MOVF   78,W
+0169:  MOVWF  21
+016A:  MOVF   77,W
+016B:  MOVWF  20
+....................       D=(T/2)/(29.15); 
+016C:  MOVF   23,W
+016D:  MOVWF  2F
+016E:  MOVF   22,W
+016F:  MOVWF  2E
+0170:  MOVF   21,W
+0171:  MOVWF  2D
+0172:  MOVF   20,W
+0173:  MOVWF  2C
+0174:  CLRF   33
+0175:  CLRF   32
+0176:  CLRF   31
+0177:  MOVLW  80
+0178:  MOVWF  30
+0179:  CALL   023
+017A:  MOVF   77,W
+017B:  MOVWF  28
+017C:  MOVF   78,W
+017D:  MOVWF  29
+017E:  MOVF   79,W
+017F:  MOVWF  2A
+0180:  MOVF   7A,W
+0181:  MOVWF  2B
+0182:  MOVWF  2F
+0183:  MOVF   79,W
+0184:  MOVWF  2E
+0185:  MOVF   78,W
+0186:  MOVWF  2D
+0187:  MOVF   77,W
+0188:  MOVWF  2C
+0189:  MOVLW  33
+018A:  MOVWF  33
+018B:  MOVWF  32
+018C:  MOVLW  69
+018D:  MOVWF  31
+018E:  MOVLW  83
+018F:  MOVWF  30
+0190:  CALL   023
+0191:  MOVF   7A,W
+0192:  MOVWF  27
+0193:  MOVF   79,W
+0194:  MOVWF  26
+0195:  MOVF   78,W
+0196:  MOVWF  25
+0197:  MOVF   77,W
+0198:  MOVWF  24
+....................       if (D<10){ 
+0199:  MOVF   27,W
+019A:  MOVWF  2B
+019B:  MOVF   26,W
+019C:  MOVWF  2A
+019D:  MOVF   25,W
+019E:  MOVWF  29
+019F:  MOVF   24,W
+01A0:  MOVWF  28
+01A1:  CLRF   2F
+01A2:  CLRF   2E
+01A3:  MOVLW  20
+01A4:  MOVWF  2D
+01A5:  MOVLW  82
+01A6:  MOVWF  2C
+01A7:  GOTO   0ED
+01A8:  BTFSS  03.0
+01A9:  GOTO   1AF
+....................       high(led); 
+01AA:  BSF    03.5
+01AB:  BCF    06.7
+01AC:  BCF    03.5
+01AD:  BSF    06.7
+....................       } 
+....................       else{ 
+01AE:  GOTO   1B3
+....................       low(led); 
+01AF:  BSF    03.5
+01B0:  BCF    06.7
+01B1:  BCF    03.5
+01B2:  BCF    06.7
+....................       } 
+....................    } 
+01B3:  GOTO   13F
+....................  
+.................... } 
+01B4:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F31   XT NOWDT PUT NODEBUG NOPROTECT NOBROWNOUT NOLVP NOCPD NOWRT

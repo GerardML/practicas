@@ -1,0 +1,8 @@
+#include <16f877a.h>
+#use delay (clock=4M)
+#fuses xt,noprotect,nowdt
+
+void main()
+{
+   
+}

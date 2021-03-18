@@ -1,0 +1,8 @@
+#include <16f877a.h>
+#use clock(4M)
+#fuses xt,noprotect
+
+void main()
+{
+   
+}

@@ -1,0 +1,125 @@
+CCS PCM C Compiler, Version 4.104, 5967               20-feb.-21 15:29
+
+               Filename: C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\Interrupcion TIMER1\TIMER1.lst
+
+               ROM used: 72 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 5 (1%) at main() level
+                         8 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   033
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #use delay(clock=4M) 
+.................... #fuses noprotect, nowdt, xt, nobrownout 
+....................  
+.................... #use standard_io(b) 
+.................... #byte salida=0x06 
+.................... #define led pin_b0 
+....................  
+....................  
+.................... void on(){ 
+0004:  CLRF   21
+....................    int T=0; 
+....................    output_toggle(led); 
+0005:  BSF    03.5
+0006:  BCF    06.0
+0007:  MOVLW  01
+0008:  BCF    03.5
+0009:  XORWF  06,F
+....................    bit_clear(salida,1); 
+000A:  BCF    06.1
+....................    bit_clear(salida,2); 
+000B:  BCF    06.2
+....................     
+....................       while(T<2){ 
+000C:  MOVF   21,W
+000D:  SUBLW  01
+000E:  BTFSS  03.0
+000F:  GOTO   030
+....................          set_timer1(53035); 
+0010:  MOVLW  CF
+0011:  MOVWF  0F
+0012:  MOVLW  2B
+0013:  MOVWF  0E
+....................          while(get_timer1()>=53035) 
+....................          { 
+0014:  MOVF   0F,W
+0015:  MOVWF  7A
+0016:  MOVF   0E,W
+0017:  MOVWF  77
+0018:  MOVF   0F,W
+0019:  SUBWF  7A,W
+001A:  BTFSS  03.2
+001B:  GOTO   014
+001C:  MOVF   77,W
+001D:  MOVWF  22
+001E:  MOVF   7A,W
+001F:  MOVWF  23
+0020:  MOVF   23,W
+0021:  SUBLW  CE
+0022:  BTFSC  03.0
+0023:  GOTO   02D
+0024:  XORLW  FF
+0025:  BTFSS  03.2
+0026:  GOTO   02B
+0027:  MOVF   22,W
+0028:  SUBLW  2A
+0029:  BTFSC  03.0
+002A:  GOTO   02D
+....................             bit_set(salida,1); 
+002B:  BSF    06.1
+....................          } 
+002C:  GOTO   014
+....................          bit_set(salida,2); 
+002D:  BSF    06.2
+....................          T++; 
+002E:  INCF   21,F
+....................       } 
+002F:  GOTO   00C
+.................... } 
+0030:  BCF    0A.3
+0031:  BCF    0A.4
+0032:  GOTO   046 (RETURN)
+....................  
+.................... void main(){ 
+0033:  CLRF   04
+0034:  BCF    03.7
+0035:  MOVLW  1F
+0036:  ANDWF  03,F
+0037:  BSF    03.5
+0038:  BSF    1F.0
+0039:  BSF    1F.1
+003A:  BSF    1F.2
+003B:  BCF    1F.3
+003C:  MOVLW  07
+003D:  MOVWF  1C
+....................    setup_timer_1 (T1_INTERNAL|T1_DIV_BY_8); 
+003E:  MOVLW  B5
+003F:  BCF    03.5
+0040:  MOVWF  10
+....................    set_tris_b(0xF8); 
+0041:  MOVLW  F8
+0042:  BSF    03.5
+0043:  MOVWF  06
+....................        
+....................    while(1){ 
+....................       on(); 
+0044:  BCF    03.5
+0045:  GOTO   004
+....................    } 
+0046:  GOTO   045
+....................  
+.................... } 
+0047:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F31   XT NOWDT PUT NODEBUG NOPROTECT NOBROWNOUT NOLVP NOCPD NOWRT

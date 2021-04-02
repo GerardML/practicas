@@ -1,0 +1,20 @@
+[PROJECT]
+Target=RX.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=RX.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\devices\;C:\Program Files (x86)\PICC\drivers\
+[RX.c]
+Type=4
+[mru-list]
+1=RX.c
+[Opened Files]
+1=RX.c
+2=
+3=
+[Units]
+Count=1
+1=RX (main)

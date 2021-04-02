@@ -1,0 +1,8 @@
+#include <16f877.h>
+#use delay(clock=4M)
+#fuses xt, noprotect, nowdt
+#use RTOS(options)
+
+void main(){
+   
+}

@@ -1,0 +1,43 @@
+#include <16f877a.h>
+#fuses xt, noprotect, nowdt
+#use delay (clock = 4M)
+#use rs232(baud=9600, XMIT=PIN_C6, RCV=PIN_C7)
+
+
+#byte Trisb = 0x86
+#byte Portb = 0x06
+
+#bit  BRGH  = 0x98.2  // Baud Rate
+#byte RCREG = 0x18    // Read Data Register
+#byte TXREG = 0x19    // Load Data Register
+
+void main(){
+   Trisb = 0x00;
+   Portb = 0x00;
+   
+   char c[5];
+   int words[2][5] = {
+      
+      {' ', 'H', 'i'},
+      {' ', 'L', 'o', 'w'}
+      
+      };
+   
+   do{
+      gets(c);
+         
+         int c;
+         for(c=0; c<2; c++){
+            
+            int f;
+            for(f=0; f<6; f++){
+               int1 r = 0;
+               if (words[c][f] == c[&f]) r=1;
+               else r=0;
+            }
+         
+         }
+         //Portb = r;
+   }
+   while(1);
+}

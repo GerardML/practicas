@@ -1,3 +1,4 @@
-      Memory usage:   ROM=3%      RAM=7% - 8%
-      0 Errors,  0 Warnings.
+>>> Warning 216 "9999.c" Line 104(1,2): Interrupts disabled during call to prevent re-entrancy:  (conteo)
+      Memory usage:   ROM=3%      RAM=7% - 9%
+      0 Errors,  1 Warnings.
 Build Successful.

@@ -1,18 +1,18 @@
-CCS PCM C Compiler, Version 5.015, 5967               17-mar.-21 16:47
+CCS PCM C Compiler, Version 5.015, 5967               18-mar.-21 21:08
 
                Filename:   C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\9999 Counter\9999.lst
 
-               ROM used:   234 words (3%)
+               ROM used:   238 words (3%)
                            Largest free fragment is 2048
-               RAM used:   25 (7%) at main() level
-                           30 (8%) worst case
-               Stack used: 3 locations (2 in main + 1 for interrupts)
+               RAM used:   27 (7%) at main() level
+                           33 (9%) worst case
+               Stack used: 5 locations (2 in main + 3 for interrupts)
                Stack size: 8
 
 *
 0000:  MOVLW  00
 0001:  MOVWF  0A
-0002:  GOTO   088
+0002:  GOTO   084
 0003:  NOP
 0004:  MOVWF  7F
 0005:  SWAPF  03,W
@@ -56,7 +56,7 @@ CCS PCM C Compiler, Version 5.015, 5967               17-mar.-21 16:47
 002B:  RETFIE
 002C:  BCF    0A.3
 002D:  BCF    0A.4
-002E:  GOTO   02F
+002E:  GOTO   07C
 .................... #include <16f877a.h> 
 .................... //////////// Standard Header file for the PIC16F877A device //////////////// 
 .................... /////////////////////////////////////////////////////////////////////////// 
@@ -73,28 +73,27 @@ CCS PCM C Compiler, Version 5.015, 5967               17-mar.-21 16:47
 .................... #list 
 ....................  
 .................... #use delay(clock=4M) 
-*
-0039:  MOVLW  38
-003A:  MOVWF  04
-003B:  BCF    03.7
-003C:  MOVF   00,W
-003D:  BTFSC  03.2
-003E:  GOTO   04D
-003F:  MOVLW  01
-0040:  MOVWF  78
-0041:  CLRF   77
-0042:  DECFSZ 77,F
-0043:  GOTO   042
-0044:  DECFSZ 78,F
-0045:  GOTO   041
-0046:  MOVLW  4A
-0047:  MOVWF  77
-0048:  DECFSZ 77,F
-0049:  GOTO   048
-004A:  GOTO   04B
-004B:  DECFSZ 00,F
-004C:  GOTO   03F
-004D:  RETURN
+002F:  MOVLW  3B
+0030:  MOVWF  04
+0031:  BCF    03.7
+0032:  MOVF   00,W
+0033:  BTFSC  03.2
+0034:  GOTO   043
+0035:  MOVLW  01
+0036:  MOVWF  78
+0037:  CLRF   77
+0038:  DECFSZ 77,F
+0039:  GOTO   038
+003A:  DECFSZ 78,F
+003B:  GOTO   037
+003C:  MOVLW  4A
+003D:  MOVWF  77
+003E:  DECFSZ 77,F
+003F:  GOTO   03E
+0040:  GOTO   041
+0041:  DECFSZ 00,F
+0042:  GOTO   035
+0043:  RETURN
 .................... #FUSES xt,noprotect,nowdt 
 .................... #use fast_io(B) 
 .................... #use fast_io(C) 
@@ -107,264 +106,271 @@ CCS PCM C Compiler, Version 5.015, 5967               17-mar.-21 16:47
 .................... #bit  cen     = 0x07.3 
 .................... #bit  uMill   = 0x07.4 
 ....................  
-.................... int8 numDisp[9]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0xfc,0x47,255}; 
+.................... int8 numDisp[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0xfc,0x47,255,0x67}; 
 *
-0097:  MOVLW  3F
-0098:  BCF    03.5
-0099:  MOVWF  27
-009A:  MOVLW  06
-009B:  MOVWF  28
-009C:  MOVLW  5B
-009D:  MOVWF  29
-009E:  MOVLW  4F
-009F:  MOVWF  2A
-00A0:  MOVLW  66
-00A1:  MOVWF  2B
-00A2:  MOVLW  6D
-00A3:  MOVWF  2C
-00A4:  MOVLW  FC
-00A5:  MOVWF  2D
-00A6:  MOVLW  47
-00A7:  MOVWF  2E
-00A8:  MOVLW  FF
-00A9:  MOVWF  2F
+0093:  MOVLW  3F
+0094:  BCF    03.5
+0095:  MOVWF  28
+0096:  MOVLW  06
+0097:  MOVWF  29
+0098:  MOVLW  5B
+0099:  MOVWF  2A
+009A:  MOVLW  4F
+009B:  MOVWF  2B
+009C:  MOVLW  66
+009D:  MOVWF  2C
+009E:  MOVLW  6D
+009F:  MOVWF  2D
+00A0:  MOVLW  FC
+00A1:  MOVWF  2E
+00A2:  MOVLW  47
+00A3:  MOVWF  2F
+00A4:  MOVLW  FF
+00A5:  MOVWF  30
+00A6:  MOVLW  67
+00A7:  MOVWF  31
 .................... int c=0,c2=0,c3=0,c4=0; 
+....................  
+.................... void conteo(); 
 ....................  
 .................... #int_ext 
 ....................  
 .................... void ext(){ 
-....................    while(input(pin_b0)){ 
+....................    while(!input(pin_b0)){ 
 *
-002F:  BTFSS  06.0
-0030:  GOTO   034
-....................       portb=0xFF; 
-0031:  MOVLW  FF
-0032:  MOVWF  06
-0033:  GOTO   02F
+007C:  BTFSC  06.0
+007D:  GOTO   080
+....................       conteo(); 
+007E:  CALL   044
+007F:  GOTO   07C
 ....................    } 
-....................    portb=0x00; 
-0034:  CLRF   06
-0035:  BCF    0B.1
-0036:  BCF    0A.3
-0037:  BCF    0A.4
-0038:  GOTO   01B
+....................    //portb=0x00; 
+0080:  BCF    0B.1
+0081:  BCF    0A.3
+0082:  BCF    0A.4
+0083:  GOTO   01B
 .................... } 
 ....................  
 .................... void conteo(){ 
 ....................  
 ....................    uMill = 0; 
 *
-004E:  BCF    07.4
+0044:  BCF    07.4
 ....................    cen   = 1; 
-004F:  BSF    07.3
+0045:  BSF    07.3
 ....................    dec   = 1; 
-0050:  BSF    07.2
+0046:  BSF    07.2
 ....................    uni   = 1; 
-0051:  BSF    07.1
+0047:  BSF    07.1
 ....................    display=numDisp[c4]; 
-0052:  MOVLW  27
-0053:  ADDWF  33,W
-0054:  MOVWF  04
-0055:  BCF    03.7
-0056:  MOVF   00,W
-0057:  MOVWF  08
-....................    delay_us(1000); 
-0058:  MOVLW  01
-0059:  MOVWF  38
-005A:  CALL   039
+0048:  MOVLW  28
+0049:  ADDWF  35,W
+004A:  MOVWF  04
+004B:  BCF    03.7
+004C:  MOVF   00,W
+004D:  MOVWF  08
+....................    delay_ms(1); 
+004E:  MOVLW  01
+004F:  MOVWF  3B
+0050:  CALL   02F
 ....................    
 ....................    uMill = 1; 
-005B:  BSF    07.4
+0051:  BSF    07.4
 ....................    cen   = 0; 
-005C:  BCF    07.3
+0052:  BCF    07.3
 ....................    dec   = 1; 
-005D:  BSF    07.2
+0053:  BSF    07.2
 ....................    uni   = 1; 
-005E:  BSF    07.1
+0054:  BSF    07.1
 ....................    display=numDisp[c3]; 
-005F:  MOVLW  27
-0060:  ADDWF  32,W
-0061:  MOVWF  04
-0062:  BCF    03.7
-0063:  MOVF   00,W
-0064:  MOVWF  08
+0055:  MOVLW  28
+0056:  ADDWF  34,W
+0057:  MOVWF  04
+0058:  BCF    03.7
+0059:  MOVF   00,W
+005A:  MOVWF  08
 ....................    delay_ms(1); 
-0065:  MOVLW  01
-0066:  MOVWF  38
-0067:  CALL   039
+005B:  MOVLW  01
+005C:  MOVWF  3B
+005D:  CALL   02F
 ....................     
 ....................    uMill = 1; 
-0068:  BSF    07.4
+005E:  BSF    07.4
 ....................    cen   = 1; 
-0069:  BSF    07.3
+005F:  BSF    07.3
 ....................    dec   = 0; 
-006A:  BCF    07.2
+0060:  BCF    07.2
 ....................    uni   = 1; 
-006B:  BSF    07.1
+0061:  BSF    07.1
 ....................    display=numDisp[c]; 
-006C:  MOVLW  27
-006D:  ADDWF  30,W
-006E:  MOVWF  04
-006F:  BCF    03.7
-0070:  MOVF   00,W
-0071:  MOVWF  08
+0062:  MOVLW  28
+0063:  ADDWF  32,W
+0064:  MOVWF  04
+0065:  BCF    03.7
+0066:  MOVF   00,W
+0067:  MOVWF  08
 ....................    delay_ms(1); 
-0072:  MOVLW  01
-0073:  MOVWF  38
-0074:  CALL   039
+0068:  MOVLW  01
+0069:  MOVWF  3B
+006A:  CALL   02F
 ....................     
 ....................    uMill = 1; 
-0075:  BSF    07.4
+006B:  BSF    07.4
 ....................    cen   = 1; 
-0076:  BSF    07.3
+006C:  BSF    07.3
 ....................    dec   = 1; 
-0077:  BSF    07.2
+006D:  BSF    07.2
 ....................    uni   = 0; 
-0078:  BCF    07.1
+006E:  BCF    07.1
 ....................    display=numDisp[c2]; 
-0079:  MOVLW  27
-007A:  ADDWF  31,W
-007B:  MOVWF  04
-007C:  BCF    03.7
-007D:  MOVF   00,W
-007E:  MOVWF  08
+006F:  MOVLW  28
+0070:  ADDWF  33,W
+0071:  MOVWF  04
+0072:  BCF    03.7
+0073:  MOVF   00,W
+0074:  MOVWF  08
 ....................    delay_ms(1); 
-007F:  MOVLW  01
-0080:  MOVWF  38
-0081:  CALL   039
+0075:  MOVLW  01
+0076:  MOVWF  3B
+0077:  CALL   02F
 ....................     
 ....................    delay_ms(40); 
-0082:  MOVLW  28
-0083:  MOVWF  38
-0084:  CALL   039
-0085:  BCF    0A.3
-0086:  BCF    0A.4
-0087:  GOTO   0DB (RETURN)
+0078:  MOVLW  28
+0079:  MOVWF  3B
+007A:  CALL   02F
+007B:  RETURN
 .................... } 
 ....................  
 ....................  
 .................... void main(){ 
-0088:  MOVF   03,W
-0089:  ANDLW  1F
-008A:  MOVWF  03
-008B:  CLRF   30
-008C:  CLRF   31
-008D:  CLRF   32
-008E:  CLRF   33
-008F:  BSF    03.5
-0090:  BSF    1F.0
-0091:  BSF    1F.1
-0092:  BSF    1F.2
-0093:  BCF    1F.3
-0094:  MOVLW  07
-0095:  MOVWF  1C
-0096:  BCF    03.7
+*
+0084:  MOVF   03,W
+0085:  ANDLW  1F
+0086:  MOVWF  03
+0087:  CLRF   32
+0088:  CLRF   33
+0089:  CLRF   34
+008A:  CLRF   35
+008B:  BSF    03.5
+008C:  BSF    1F.0
+008D:  BSF    1F.1
+008E:  BSF    1F.2
+008F:  BCF    1F.3
+0090:  MOVLW  07
+0091:  MOVWF  1C
+0092:  BCF    03.7
 ....................    enable_interrupts(int_ext); 
 *
-00AA:  BSF    0B.4
+00A8:  BSF    0B.4
 ....................    enable_interrupts(global); 
-00AB:  MOVLW  C0
-00AC:  IORWF  0B,F
-....................    ext_int_edge(L_TO_H); 
-00AD:  BSF    03.5
-00AE:  BSF    01.6
+00A9:  MOVLW  C0
+00AA:  IORWF  0B,F
+....................    ext_int_edge(H_TO_L); 
+00AB:  BSF    03.5
+00AC:  BCF    01.6
 ....................    int globa=0; 
 ....................    int globa2=0; 
 ....................    int globa3=0; 
 ....................    int globa4=0; 
-00AF:  BCF    03.5
-00B0:  CLRF   34
-00B1:  CLRF   35
-00B2:  CLRF   36
-00B3:  CLRF   37
+00AD:  BCF    03.5
+00AE:  CLRF   36
+00AF:  CLRF   37
+00B0:  CLRF   38
+00B1:  CLRF   39
 ....................     
 ....................    set_tris_b(0x01); 
-00B4:  MOVLW  01
-00B5:  BSF    03.5
-00B6:  MOVWF  06
+00B2:  MOVLW  01
+00B3:  BSF    03.5
+00B4:  MOVWF  06
 ....................    set_tris_c(0xE1); 
-00B7:  MOVLW  E1
-00B8:  MOVWF  07
+00B5:  MOVLW  E1
+00B6:  MOVWF  07
 ....................    set_tris_d(0x00); 
-00B9:  MOVLW  00
-00BA:  MOVWF  08
+00B7:  MOVLW  00
+00B8:  MOVWF  08
 ....................    display=numDisp[c]; 
-00BB:  MOVLW  27
-00BC:  BCF    03.5
-00BD:  ADDWF  30,W
-00BE:  MOVWF  04
-00BF:  BCF    03.7
-00C0:  MOVF   00,W
-00C1:  MOVWF  08
+00B9:  MOVLW  28
+00BA:  BCF    03.5
+00BB:  ADDWF  32,W
+00BC:  MOVWF  04
+00BD:  BCF    03.7
+00BE:  MOVF   00,W
+00BF:  MOVWF  08
 ....................    portb=0x00; 
-00C2:  CLRF   06
+00C0:  CLRF   06
 ....................     
 ....................    for(;;){ 
-....................       for(globa4=0;globa4<=8;globa4++){ 
-00C3:  CLRF   37
-00C4:  MOVF   37,W
-00C5:  SUBLW  08
-00C6:  BTFSS  03.0
-00C7:  GOTO   0E7
-....................                 
-....................                c3=0; 
-00C8:  CLRF   32
-....................                 
-....................                for(globa3=0;globa3<=7;globa3++){ 
-00C9:  CLRF   36
-00CA:  MOVF   36,W
-00CB:  SUBLW  07
-00CC:  BTFSS  03.0
-00CD:  GOTO   0E4
-....................                       
-....................                      c=0; 
-00CE:  CLRF   30
-....................                       
-....................                      for(globa=0;globa<=8;globa++){ 
-00CF:  CLRF   34
-00D0:  MOVF   34,W
-00D1:  SUBLW  08
-00D2:  BTFSS  03.0
-00D3:  GOTO   0E1
+....................          for(globa4=0;globa4<=9;globa4++){ 
+00C1:  CLRF   39
+00C2:  MOVF   39,W
+00C3:  SUBLW  09
+00C4:  BTFSS  03.0
+00C5:  GOTO   0EB
+....................                    
+....................                   c3=0; 
+00C6:  CLRF   34
+....................                    
+....................                   for(globa3=0;globa3<=9;globa3++){ 
+00C7:  CLRF   38
+00C8:  MOVF   38,W
+00C9:  SUBLW  09
+00CA:  BTFSS  03.0
+00CB:  GOTO   0E8
 ....................                          
-....................                         c2=0; 
-00D4:  CLRF   31
+....................                         c=0; 
+00CC:  CLRF   32
 ....................                          
-....................                         for(globa2=0;globa2<=8;globa2++){ 
-00D5:  CLRF   35
-00D6:  MOVF   35,W
-00D7:  SUBLW  08
-00D8:  BTFSS  03.0
-00D9:  GOTO   0DE
-....................                          
-....................                            conteo(); 
-00DA:  GOTO   04E
-....................                            c2++; 
-00DB:  INCF   31,F
-00DC:  INCF   35,F
-00DD:  GOTO   0D6
+....................                         for(globa=0;globa<=9;globa++){ 
+00CD:  CLRF   36
+00CE:  MOVF   36,W
+00CF:  SUBLW  09
+00D0:  BTFSS  03.0
+00D1:  GOTO   0E5
+....................                             
+....................                            c2=0; 
+00D2:  CLRF   33
+....................                             
+....................                            for(globa2=0;globa2<=9;globa2++){ 
+00D3:  CLRF   37
+00D4:  MOVF   37,W
+00D5:  SUBLW  09
+00D6:  BTFSS  03.0
+00D7:  GOTO   0E2
+00D8:  CLRF   27
+00D9:  BTFSC  0B.7
+00DA:  BSF    27.7
+00DB:  BCF    0B.7
+....................                             
+....................                               conteo(); 
+00DC:  CALL   044
+00DD:  BTFSC  27.7
+00DE:  BSF    0B.7
+....................                               c2++; 
+00DF:  INCF   33,F
+00E0:  INCF   37,F
+00E1:  GOTO   0D4
+....................                            } 
+....................                            c++; 
+00E2:  INCF   32,F
+00E3:  INCF   36,F
+00E4:  GOTO   0CE
 ....................                         } 
-....................                         c++; 
-00DE:  INCF   30,F
-00DF:  INCF   34,F
-00E0:  GOTO   0D0
-....................                      } 
-....................                      c3++; 
-00E1:  INCF   32,F
-00E2:  INCF   36,F
-00E3:  GOTO   0CA
-....................                } 
-....................                c4++; 
-00E4:  INCF   33,F
-00E5:  INCF   37,F
-00E6:  GOTO   0C4
+....................                         c3++; 
+00E5:  INCF   34,F
+00E6:  INCF   38,F
+00E7:  GOTO   0C8
+....................                   } 
+....................                   c4++; 
+00E8:  INCF   35,F
+00E9:  INCF   39,F
+00EA:  GOTO   0C2
+....................          } 
+....................          c4=0; 
+00EB:  CLRF   35
+00EC:  GOTO   0C1
 ....................       } 
-....................       c4=0; 
-00E7:  CLRF   33
-00E8:  GOTO   0C3
-....................    } 
 .................... } 
-00E9:  SLEEP
+00ED:  SLEEP
 
 Configuration Fuses:
    Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

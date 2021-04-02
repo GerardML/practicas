@@ -1,0 +1,15 @@
+#include <16f877.h>
+#use delay(clock=4M)
+#fuses xt, noprotect, nowdt
+#use RTOS(timer=0, minor_cycle=20ms)
+
+#use standard_io(b)
+
+#task(rate=1s, max=20ms)
+void task1(){
+   
+}
+
+void main(){
+   RTOS_run();
+}

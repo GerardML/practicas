@@ -1,0 +1,250 @@
+CCS PCM C Compiler, Version 5.015, 5967               31-mar.-21 19:48
+
+               Filename:   C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\USART\RX\RX.lst
+
+               ROM used:   157 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           27 (7%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   042
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+*
+001B:  CLRF   77
+001C:  CLRF   78
+001D:  MOVF   35,W
+001E:  BCF    03.0
+001F:  BTFSC  36.0
+0020:  ADDWF  77,F
+0021:  RRF    77,F
+0022:  RRF    78,F
+0023:  BTFSC  36.1
+0024:  ADDWF  77,F
+0025:  RRF    77,F
+0026:  RRF    78,F
+0027:  BTFSC  36.2
+0028:  ADDWF  77,F
+0029:  RRF    77,F
+002A:  RRF    78,F
+002B:  BTFSC  36.3
+002C:  ADDWF  77,F
+002D:  RRF    77,F
+002E:  RRF    78,F
+002F:  BTFSC  36.4
+0030:  ADDWF  77,F
+0031:  RRF    77,F
+0032:  RRF    78,F
+0033:  BTFSC  36.5
+0034:  ADDWF  77,F
+0035:  RRF    77,F
+0036:  RRF    78,F
+0037:  BTFSC  36.6
+0038:  ADDWF  77,F
+0039:  RRF    77,F
+003A:  RRF    78,F
+003B:  BTFSC  36.7
+003C:  ADDWF  77,F
+003D:  RRF    77,F
+003E:  RRF    78,F
+003F:  BCF    0A.3
+0040:  BCF    0A.4
+0041:  GOTO   080 (RETURN)
+....................  
+.................... #list 
+....................  
+.................... #fuses xt, noprotect, nowdt 
+.................... #use delay (clock = 4M) 
+*
+0004:  MOVLW  36
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  BCF    0A.3
+0019:  BCF    0A.4
+001A:  GOTO   06E (RETURN)
+.................... #use rs232(baud=9600, XMIT=PIN_C6, RCV=PIN_C7) 
+....................  
+....................  
+.................... #byte Trisb = 0x86 
+.................... #byte Portb = 0x06 
+....................  
+.................... #bit  BRGH  = 0x98.2  // Baud Rate 
+.................... #byte RCREG = 0x18    // Read Data Register 
+.................... #byte TXREG = 0x19    // Load Data Register 
+....................  
+.................... void main(){ 
+*
+0042:  MOVF   03,W
+0043:  ANDLW  1F
+0044:  MOVWF  03
+0045:  MOVLW  19
+0046:  BSF    03.5
+0047:  MOVWF  19
+0048:  MOVLW  A6
+0049:  MOVWF  18
+004A:  MOVLW  90
+004B:  BCF    03.5
+004C:  MOVWF  18
+004D:  BSF    03.5
+004E:  BSF    1F.0
+004F:  BSF    1F.1
+0050:  BSF    1F.2
+0051:  BCF    1F.3
+0052:  MOVLW  07
+0053:  MOVWF  1C
+0054:  BCF    03.7
+....................    Trisb = 0x00; 
+0055:  CLRF   06
+....................    Portb = 0x00; 
+0056:  BCF    03.5
+0057:  CLRF   06
+....................     
+....................    char c[5]; 
+....................    int1 abe[2][2]; 
+....................    int8 ebe; 
+....................    int words[2][5] = { 
+....................        
+....................       {'H', 'i'}, 
+....................       {'L', 'o', 'w'} 
+....................        
+....................       }; 
+0058:  MOVLW  48
+0059:  MOVWF  28
+005A:  MOVLW  69
+005B:  MOVWF  29
+005C:  CLRF   2A
+005D:  CLRF   2B
+005E:  CLRF   2C
+005F:  MOVLW  4C
+0060:  MOVWF  2D
+0061:  MOVLW  6F
+0062:  MOVWF  2E
+0063:  MOVLW  77
+0064:  MOVWF  2F
+0065:  CLRF   30
+0066:  CLRF   31
+....................     
+....................    do{ 
+....................       //gets(c); 
+....................           
+....................          int r; 
+....................          int b; 
+....................           
+....................          if (sizeof(abe) == sizeof(ebe)){ 
+....................             portb=0xff; 
+0067:  MOVLW  FF
+0068:  MOVWF  06
+....................             delay_ms(1000); 
+0069:  MOVLW  04
+006A:  MOVWF  35
+006B:  MOVLW  FA
+006C:  MOVWF  36
+006D:  GOTO   004
+006E:  DECFSZ 35,F
+006F:  GOTO   06B
+....................          } 
+....................           
+....................          for(r=0; r<2; r++){ 
+0070:  CLRF   32
+0071:  MOVF   32,W
+0072:  SUBLW  01
+0073:  BTFSS  03.0
+0074:  GOTO   09B
+....................              
+....................             int f; 
+....................             for(f=1; f<6; f++){ 
+0075:  MOVLW  01
+0076:  MOVWF  34
+0077:  MOVF   34,W
+0078:  SUBLW  05
+0079:  BTFSS  03.0
+007A:  GOTO   099
+....................                 
+....................                if (words[r][f] == c[f]){ 
+007B:  MOVF   32,W
+007C:  MOVWF  35
+007D:  MOVLW  05
+007E:  MOVWF  36
+007F:  GOTO   01B
+0080:  MOVF   34,W
+0081:  ADDWF  78,W
+0082:  ADDLW  28
+0083:  MOVWF  04
+0084:  BCF    03.7
+0085:  MOVF   00,W
+0086:  MOVWF  35
+0087:  MOVLW  21
+0088:  ADDWF  34,W
+0089:  MOVWF  04
+008A:  BCF    03.7
+008B:  MOVF   00,W
+008C:  SUBWF  35,W
+008D:  BTFSS  03.2
+008E:  GOTO   094
+....................                   b=255; 
+008F:  MOVLW  FF
+0090:  MOVWF  33
+....................                   Portb = b; 
+0091:  MOVF   33,W
+0092:  MOVWF  06
+....................                   //delay_ms(500); 
+....................                } 
+0093:  GOTO   097
+....................                else{ 
+....................                   b=0; 
+0094:  CLRF   33
+....................                   Portb = b; 
+0095:  MOVF   33,W
+0096:  MOVWF  06
+....................                   //delay_ms(500); 
+....................                    
+....................                } 
+0097:  INCF   34,F
+0098:  GOTO   077
+....................             } 
+0099:  INCF   32,F
+009A:  GOTO   071
+....................           
+....................          } 
+....................           
+....................    } 
+....................    while(1); 
+009B:  GOTO   067
+.................... } 
+009C:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

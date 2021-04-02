@@ -12,16 +12,18 @@
 #bit  cen     = 0x07.3
 #bit  uMill   = 0x07.4
 
-int8 numDisp[9]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0xfc,0x47,255};
+int8 numDisp[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0xfc,0x47,255,0x67};
 int c=0,c2=0,c3=0,c4=0;
+
+void conteo();
 
 #int_ext
 
 void ext(){
-   while(input(pin_b0)){
-      portb=0xFF;
+   while(!input(pin_b0)){
+      conteo();
    }
-   portb=0x00;
+   //portb=0x00;
 }
 
 void conteo(){
@@ -31,7 +33,7 @@ void conteo(){
    dec   = 1;
    uni   = 1;
    display=numDisp[c4];
-   delay_us(1000);
+   delay_ms(1);
   
    uMill = 1;
    cen   = 0;
@@ -61,7 +63,7 @@ void conteo(){
 void main(){
    enable_interrupts(int_ext);
    enable_interrupts(global);
-   ext_int_edge(L_TO_H);
+   ext_int_edge(H_TO_L);
    int globa=0;
    int globa2=0;
    int globa3=0;
@@ -74,29 +76,29 @@ void main(){
    portb=0x00;
    
    for(;;){
-      for(globa4=0;globa4<=8;globa4++){
-               
-               c3=0;
-               
-               for(globa3=0;globa3<=7;globa3++){
-                     
-                     c=0;
-                     
-                     for(globa=0;globa<=8;globa++){
+         for(globa4=0;globa4<=9;globa4++){
+                  
+                  c3=0;
+                  
+                  for(globa3=0;globa3<=9;globa3++){
                         
-                        c2=0;
+                        c=0;
                         
-                        for(globa2=0;globa2<=8;globa2++){
-                        
-                           conteo();
-                           c2++;
+                        for(globa=0;globa<=9;globa++){
+                           
+                           c2=0;
+                           
+                           for(globa2=0;globa2<=9;globa2++){
+                           
+                              conteo();
+                              c2++;
+                           }
+                           c++;
                         }
-                        c++;
-                     }
-                     c3++;
-               }
-               c4++;
+                        c3++;
+                  }
+                  c4++;
+         }
+         c4=0;
       }
-      c4=0;
-   }
 }

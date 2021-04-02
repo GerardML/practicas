@@ -22,16 +22,17 @@
 024     @INTERRUPT_AREA
 025     @INTERRUPT_AREA
 026     @INTERRUPT_AREA
-027-02F numDisp
-030     c
-031     c2
-032     c3
-033     c4
-034     MAIN.globa
-035     MAIN.globa2
-036     MAIN.globa3
-037     MAIN.globa4
-038     @delay_ms1.P1
+027     @INTERRUPT_AREA
+028-031 numDisp
+032     c
+033     c2
+034     c3
+035     c4
+036     MAIN.globa
+037     MAIN.globa2
+038     MAIN.globa3
+039     MAIN.globa4
+03B     @delay_ms1.P1
 077     @SCRATCH
 078     @SCRATCH
 078     _RETURN_
@@ -75,21 +76,21 @@ F7F     @INTERRUPT_AREA
 FFF     @INTERRUPT_AREA
 
 ROM Allocation:
-00002F  ext
-000039  @delay_ms1
-00004E  conteo
-000088  MAIN
-000088  @cinit1
-000096  @cinit2
+00002F  @delay_ms1
+000044  conteo
+00007C  ext
+000084  MAIN
+000084  @cinit1
+000092  @cinit2
 
 Project Directory:
     C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\9999 Counter\
 
 Project Files:
-    9999.c                                                  [17-mar.-21 16:47  CRC=04BD15D1]
+    9999.c                                                  [18-mar.-21 21:08  CRC=0E93A518]
     ..\..\..\..\..\..\Program Files (x86)\PICC\devices\16f877a.h [12-nov.-13 14:35  CRC=81334808]
 
-Source signature=0723A5E1
+Source signature=10FA3528
 
 Units:
     9999 (main)

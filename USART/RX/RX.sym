@@ -1,0 +1,73 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+006     Portb
+008     PSP_DATA
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+018     RCREG
+019     TXREG
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+021-025 main.c
+026     main.abe
+027     main.ebe
+028-031 main.words
+032     main.r
+033     main.b
+034     main.f
+035     @MUL88.P1
+035     main.@SCRATCH1
+036     @MUL88.P1
+036     @delay_ms1.P2
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+086     Trisb
+098.2   BRGH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @delay_ms1
+00001B  @MUL88
+000042  main
+000042  @cinit1
+000054  @cinit2
+
+Project Directory:
+    C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\USART\RX\
+
+Project Files:
+    RX.c                                                    [31-mar.-21 19:48  CRC=B6D2A05C]
+    ..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\16f877a.h [12-nov.-13 14:35  CRC=81334808]
+
+Source signature=B939306C
+
+Units:
+    RX (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   RX.xsym
+    Errors:      RX.err
+    Ext Symbols: RX.esym
+    INHX8:       RX.hex
+    Symbols:     RX.sym
+    List:        RX.lst
+    Debug/COFF:  RX.cof
+    Project:     RX.ccspjt
+    Call Tree:   RX.tre
+    Statistics:  RX.STA

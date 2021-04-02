@@ -1,7 +1,8 @@
-D G "__PCM__" 0 104 ""5.015""
-D G "__DEVICE__" 0 104 "877"
-D G "__DATE__" 0 104 ""17-mar.-21""
-D G "__TIME__" 0 104 ""16:47:08"" "Standard Header file for the PIC16F877A device ////////////////"
+d G "INT_COMP" 1 668 "0x008D40"
+D G "__PCM__" 0 106 ""5.015""
+D G "__DEVICE__" 0 106 "877"
+D G "__DATE__" 0 106 ""18-mar.-21""
+D G "__TIME__" 0 106 ""21:08:19"" "Standard Header file for the PIC16F877A device ////////////////"
 c L "set_tris_a" 1 3 6 "FUNCTION"
 v L "value" 1 37 "int8" `54 
 f B "set_tris_a" 1 37 "void(int8 value)" `53 
@@ -776,18 +777,20 @@ d G "INT_BUSCOL" 1 665 "0x008D08"
 d G "INT_EEPROM" 1 666 "0x008D10"
 d G "INT_TIMER0" 1 667 "0x000B20"
 d G "INT_COMP" 1 668 "0x008D40"
-V G "numDisp" 0 15 "int8[9]" `629 
+V G "numDisp" 0 15 "int8[10]" `629 
 V G "c" 0 16 "int8" `630 
 V G "c2" 0 16 "int8" `631 
 V G "c3" 0 16 "int8" `632 
 V G "c4" 0 16 "int8" `633 
-F G "ext" 0 20 "void()" `634 
-F G "conteo" 0 27 "void()" `635 
-F G "MAIN" 0 61 "void()" `636 
-V L "globa" 0 65 "int8" `639 
-V L "globa2" 0 66 "int8" `640 
-V L "globa3" 0 67 "int8" `641 
-V L "globa4" 0 68 "int8" `642 
+f G "conteo" 0 18 "void()" `634 
+F G "ext" 0 22 "void()" `635 
+C L "ext" 0 26 1 "FUNCTION"
+F G "conteo" 0 29 "void()" `634 
+F G "MAIN" 0 63 "void()" `636 
+V L "globa" 0 67 "int8" `639 
+V L "globa2" 0 68 "int8" `640 
+V L "globa3" 0 69 "int8" `641 
+V L "globa4" 0 70 "int8" `642 
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0

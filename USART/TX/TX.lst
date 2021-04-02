@@ -1,0 +1,217 @@
+CCS PCM C Compiler, Version 5.015, 5967               31-mar.-21 18:16
+
+               Filename:   C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\USART\TX\TX.lst
+
+               ROM used:   153 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   5 (1%) at main() level
+                           9 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   060
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+0004:  DATA C8,34
+0005:  DATA 00,00
+0006:  DATA CC,37
+0007:  DATA 77,00
+0008:  MOVF   0B,W
+0009:  MOVWF  21
+000A:  BCF    0B.7
+000B:  BSF    03.5
+000C:  BSF    03.6
+000D:  BSF    0C.7
+000E:  BSF    0C.0
+000F:  NOP
+0010:  NOP
+0011:  BCF    03.5
+0012:  BCF    03.6
+0013:  BTFSC  21.7
+0014:  BSF    0B.7
+0015:  BSF    03.6
+0016:  MOVF   0C,W
+0017:  ANDLW  7F
+0018:  BTFSC  03.2
+0019:  GOTO   05E
+001A:  BCF    03.6
+001B:  MOVWF  21
+001C:  BSF    03.6
+001D:  MOVF   0D,W
+001E:  BCF    03.6
+001F:  MOVWF  22
+0020:  BSF    03.6
+0021:  MOVF   0F,W
+0022:  BCF    03.6
+0023:  MOVWF  23
+0024:  MOVF   21,W
+0025:  BTFSS  0C.4
+0026:  GOTO   025
+0027:  MOVWF  19
+0028:  MOVF   22,W
+0029:  BSF    03.6
+002A:  MOVWF  0D
+002B:  BCF    03.6
+002C:  MOVF   23,W
+002D:  BSF    03.6
+002E:  MOVWF  0F
+002F:  BCF    03.6
+0030:  MOVF   0B,W
+0031:  MOVWF  24
+0032:  BCF    0B.7
+0033:  BSF    03.5
+0034:  BSF    03.6
+0035:  BSF    0C.7
+0036:  BSF    0C.0
+0037:  NOP
+0038:  NOP
+0039:  BCF    03.5
+003A:  BCF    03.6
+003B:  BTFSC  24.7
+003C:  BSF    0B.7
+003D:  BSF    03.6
+003E:  RLF    0C,W
+003F:  RLF    0E,W
+0040:  ANDLW  7F
+0041:  BTFSC  03.2
+0042:  GOTO   05E
+0043:  BCF    03.6
+0044:  MOVWF  21
+0045:  BSF    03.6
+0046:  MOVF   0D,W
+0047:  BCF    03.6
+0048:  MOVWF  22
+0049:  BSF    03.6
+004A:  MOVF   0F,W
+004B:  BCF    03.6
+004C:  MOVWF  23
+004D:  MOVF   21,W
+004E:  BTFSS  0C.4
+004F:  GOTO   04E
+0050:  MOVWF  19
+0051:  MOVF   22,W
+0052:  BSF    03.6
+0053:  MOVWF  0D
+0054:  BCF    03.6
+0055:  MOVF   23,W
+0056:  BSF    03.6
+0057:  MOVWF  0F
+0058:  INCF   0D,F
+0059:  BTFSC  03.2
+005A:  INCF   0F,F
+005B:  BCF    03.6
+005C:  GOTO   008
+005D:  BSF    03.6
+005E:  BCF    03.6
+005F:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #fuses xt, noprotect, nowdt 
+.................... #use delay (clock = 4M) 
+.................... #use rs232(baud=9600, XMIT=PIN_C6, RCV=PIN_C7) 
+....................  
+.................... #byte SPBRG = 0x99    // Baud Rate Generator Register (0-255) 
+.................... #byte RCREG = 0x18    // Read Data Register 
+.................... #byte TXREG = 0x19    // Load Data Register 
+....................  
+.................... #bit  SYNC  = 0x98.4  // USART Mode 
+.................... #bit  BRGH  = 0x98.2  // Baud Rate 
+.................... #bit  SPEN  = 0x18.7  // Serial Port Enable 
+.................... #bit  TXEN  = 0x98.5  // Transmit Enable 
+.................... #bit  CREN  = 0x18.4  // Continuous Receive Enable 
+.................... #bit  TX9   = 0x98.6  // 9-bit Transmit Enable bit 
+.................... #bit  RX9   = 0x18.6  // 9-bit Recieve Enable bit 
+.................... #bit  pullup = 0x81.7 //181.7 
+.................... #bit  push1 = 0x06.0 
+.................... #bit  push2 = 0x06.1 
+....................  
+....................  
+.................... void main(){ 
+0060:  MOVF   03,W
+0061:  ANDLW  1F
+0062:  MOVWF  03
+0063:  MOVLW  19
+0064:  BSF    03.5
+0065:  MOVWF  19
+0066:  MOVLW  A6
+0067:  MOVWF  18
+0068:  MOVLW  90
+0069:  BCF    03.5
+006A:  MOVWF  18
+006B:  BSF    03.5
+006C:  BSF    1F.0
+006D:  BSF    1F.1
+006E:  BSF    1F.2
+006F:  BCF    1F.3
+0070:  MOVLW  07
+0071:  MOVWF  1C
+0072:  BCF    03.7
+....................    //BRGH  = 0; // Baud Rate LOW 
+....................    pullup = 0; 
+0073:  BCF    01.7
+....................    while(1){ 
+....................       if (!push1){ 
+0074:  BCF    03.5
+0075:  BTFSC  06.0
+0076:  GOTO   086
+....................          puts("Hi"); 
+0077:  MOVLW  04
+0078:  BSF    03.6
+0079:  MOVWF  0D
+007A:  MOVLW  00
+007B:  MOVWF  0F
+007C:  BCF    03.6
+007D:  CALL   008
+007E:  MOVLW  0D
+007F:  BTFSS  0C.4
+0080:  GOTO   07F
+0081:  MOVWF  19
+0082:  MOVLW  0A
+0083:  BTFSS  0C.4
+0084:  GOTO   083
+0085:  MOVWF  19
+....................       } 
+....................        
+....................       if (!push2){ 
+0086:  BTFSC  06.1
+0087:  GOTO   097
+....................          puts("Low"); //Manda unicamente el array entre comillas " " 
+0088:  MOVLW  06
+0089:  BSF    03.6
+008A:  MOVWF  0D
+008B:  MOVLW  00
+008C:  MOVWF  0F
+008D:  BCF    03.6
+008E:  CALL   008
+008F:  MOVLW  0D
+0090:  BTFSS  0C.4
+0091:  GOTO   090
+0092:  MOVWF  19
+0093:  MOVLW  0A
+0094:  BTFSS  0C.4
+0095:  GOTO   094
+0096:  MOVWF  19
+....................          //putc('c'); Manda indefinidamente el caracter 
+....................       } 
+0097:  GOTO   075
+....................    } 
+.................... } 
+0098:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

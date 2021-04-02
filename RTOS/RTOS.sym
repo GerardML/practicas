@@ -1,0 +1,229 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+006     portb
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @CURRENT_TASK
+021-027 @TASKINFO1_2_2_0_0
+028-02E @TASKINFO2_2_2_0_0
+02F-035 @TASKINFO3_2_2_0_0
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const625.call
+00000E  task1
+00001B  task2
+000028  task3
+000035  MAIN
+000035  @cinit1
+00003D  @cinit2
+
+Project Directory:
+    C:\Users\GerardML\Documents\Estudio\Prueba Codigo C\RTOS\
+
+Project Files:
+    RTOS.c                                                  [30-mar.-21 15:35  CRC=C14C43FD]
+    ..\..\..\..\..\..\Program Files (x86)\PICC\devices\16f877.h [12-nov.-13 14:35  CRC=ADB5114D]
+
+Source signature=1CB66697
+
+Units:
+    RTOS (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Task Info:
+    Ticks: 100 ns
+    Cycle: 10 ms
+
+Tasks:
+    task1
+    task2
+    task3
+
+Task Schedule:
+      10 ms  619:task2
+    Sync to next 10 ms
+      10 ms  617:task1
+    Sync to next 10 ms
+      10 ms  621:task3
+    Sync to next 10 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  617:task1
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 10 ms
+      10 ms  617:task1
+    Sync to next 10 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+      10 ms  619:task2
+    Sync to next 10 ms
+    Wait 20 ms
+
+Output Files:
+    XREF file:   RTOS.xsym
+    Errors:      RTOS.err
+    Ext Symbols: RTOS.esym
+    INHX8:       RTOS.hex
+    Symbols:     RTOS.sym
+    List:        RTOS.lst
+    Debug/COFF:  RTOS.cof
+    Project:     RTOS.ccspjt
+    Call Tree:   RTOS.tre
+    Statistics:  RTOS.STA
